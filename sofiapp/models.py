@@ -20,11 +20,24 @@ class Project(models.Model):
     title = models.CharField('Título', max_length=200)
     text = models.TextField('Descripción')
     project_type = models.CharField('Tipo', max_length=1, choices=PROJECT_TYPE, default='I')
-    created_date = models.DateTimeField(default=timezone.now())
+    created_date = models.DateField('Fecha de creación', default=timezone.now())
     categories = models.ManyToManyField(Category, through='ProjectCategoryRelationship')
+    public = models.BooleanField('Proyecto público', default=True)
 
     def __str__(self):
         return self.title
+
+class Image(models.Model):
+    image = models.ImageField('Imagen', upload_to='project_images/')
+    project = models.ForeignKey(Project , related_name='images', blank=True, null=True)
+
+    def __str__(self):
+        return self.filename
+
+    @property
+    def filename(self):
+        return self.image.name.rsplit('/', 1)[-1]
+
 
 class ProjectCategoryRelationship(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)

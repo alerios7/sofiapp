@@ -3,6 +3,12 @@ from django.utils import timezone
 
 # Create your models here.
 #One project can have many categories, and one category can have many projects
+class Type(models.Model):
+    project_type = models.CharField('Tipo de proyecto', max_length=200, unique=True)
+
+    def __str__(self):
+        return self.project_type
+
 class Category(models.Model):
     category_name = models.CharField('Nombre categoría', max_length=200, unique=True)
 
@@ -11,16 +17,13 @@ class Category(models.Model):
 
 # Project model
 class Project(models.Model):
-    PROJECT_TYPE = (
-        ('I', 'Iluminación'),
-        ('P', 'Paisajismo'),
-        ('M', 'Mixto'),
-    )
-
     title = models.CharField('Título', max_length=200)
     text = models.TextField('Descripción')
-    project_type = models.CharField('Tipo', max_length=1, choices=PROJECT_TYPE, default='I')
+    project_types = models.ManyToManyField(Type, through='ProjectTypeM2M')
     created_date = models.DateField('Fecha de creación', default=timezone.now())
+    architecture = models.CharField('Arquitectura', max_length=200)
+    landscaping = models.CharField('Paisajismo', max_length=200)
+    location = models.CharField('Ubicación', max_length=200)
     categories = models.ManyToManyField(Category, through='ProjectCategoryRelationship')
     public = models.BooleanField('Proyecto público', default=True)
 
@@ -38,6 +41,10 @@ class Image(models.Model):
     def filename(self):
         return self.image.name.rsplit('/', 1)[-1]
 
+
+class ProjectTypeM2M(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project_type = models.ForeignKey(Type, on_delete=models.CASCADE)
 
 class ProjectCategoryRelationship(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)

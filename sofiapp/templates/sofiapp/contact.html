@@ -1,0 +1,20 @@
+{% extends 'sofiapp/base.html' %}
+{% block content %}
+  {% if messages %}
+    <div class="alert alert-success" role="alert" id="message">
+      <ul class="messages">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  <h1>Escribenos</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="form-actions">
+      <button type="submit">Enviar</button>
+    </div>
+  </form>
+{% endblock content %}

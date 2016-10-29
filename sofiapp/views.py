@@ -13,6 +13,8 @@ def index(request):
     return render(request, 'sofiapp/index.html', {'categories': categories, 'project_types': project_types})
 
 def contact(request):
+    categories = Category.objects.all()
+    project_types = Type.objects.all()
     if(request.method == 'GET'):
         form = ContactForm()
     else:
@@ -27,4 +29,6 @@ def contact(request):
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return redirect('sofiapp:contact')
-    return render(request, 'sofiapp/contact.html', {'form': form})
+    return render(request, 'sofiapp/contact.html', {'form': form,
+                                                    'categories': categories,
+                                                    'project_types': project_types})

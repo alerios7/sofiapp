@@ -32,3 +32,11 @@ def contact(request):
     return render(request, 'sofiapp/contact.html', {'form': form,
                                                     'categories': categories,
                                                     'project_types': project_types})
+
+def projects(request):
+    projects = Project.objects.all()
+    categories = Category.objects.all()
+    project_types = Type.objects.all()
+    return render(request, 'sofiapp/projects.html', {'projects': projects,
+                                              'categories': categories,
+                                              'project_types': project_types})

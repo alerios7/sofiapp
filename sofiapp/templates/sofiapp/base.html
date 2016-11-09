@@ -42,7 +42,7 @@
                     <li><a href="#">{{ category.category_name }}</a></li>
                 {% endfor %}
                 <li role="separator" class="divider"></li>
-                <li><a href="#">Todos</a></li>
+                <li><a href="{% url 'sofiapp:projects' %}">Todos</a></li>
               </ul>
             </li>
             <li><a href="{% url 'sofiapp:contact' %}">Contacto</a></li>

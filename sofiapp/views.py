@@ -33,10 +33,16 @@ def contact(request):
                                                     'categories': categories,
                                                     'project_types': project_types})
 
-def projects(request):
-    projects = Project.objects.all()
+def projects(request, filter):
     categories = Category.objects.all()
     project_types = Type.objects.all()
+    projects = ''
+    if(filter == 'Todos'):
+        projects = Project.objects.all()
+    elif(filter == 'Iluminación' or filter == 'Paisajismo'):
+        projects = Project.objects.filter(project_types__project_type=filter)
+    else:
+        projects = Project.objects.filter(categories__category_name=filter)
     return render(request, 'sofiapp/projects.html', {'projects': projects,
                                               'categories': categories,
                                               'project_types': project_types})

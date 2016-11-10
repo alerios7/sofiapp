@@ -6,5 +6,5 @@ app_name = 'sofiapp'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^contacto/$', views.contact, name='contact'),
-    url(r'^proyectos/$', views.projects, name='projects'),
+    url(r'^proyectos/(?P<filter>.*)/$', views.projects, name='projects'),
 ]

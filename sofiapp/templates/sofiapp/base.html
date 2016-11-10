@@ -35,14 +35,14 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Proyectos <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 {% for type in project_types %}
-                    <li><a href="#">{{ type.project_type }}</a></li>
+                    <li><a href="{% url 'sofiapp:projects' type.project_type %}">{{ type.project_type }}</a></li>
                 {% endfor %}
                 <li role="separator" class="divider"></li>
                 {% for category in categories %}
-                    <li><a href="#">{{ category.category_name }}</a></li>
+                    <li><a href="{% url 'sofiapp:projects' category.category_name %}">{{ category.category_name }}</a></li>
                 {% endfor %}
                 <li role="separator" class="divider"></li>
-                <li><a href="{% url 'sofiapp:projects' %}">Todos</a></li>
+                <li><a href="{% url 'sofiapp:projects' 'Todos' %}">Todos</a></li>
               </ul>
             </li>
             <li><a href="{% url 'sofiapp:contact' %}">Contacto</a></li>

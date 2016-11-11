@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from stdimage.models import StdImageField
 
 # Create your models here.
 #One project can have many categories, and one category can have many projects
@@ -31,7 +32,10 @@ class Project(models.Model):
         return self.title
 
 class Image(models.Model):
-    image = models.ImageField('Imagen', upload_to='project_images/')
+    image = StdImageField('Imagen', upload_to='project_images/', blank=True, variations={
+        'large': (1080, 590),
+        'medium': (540, 295),
+    })
     project = models.ForeignKey(Project , related_name='images', blank=True, null=True)
 
     def __str__(self):

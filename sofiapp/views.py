@@ -44,5 +44,5 @@ def projects(request, filter):
     else:
         projects = Project.objects.filter(categories__category_name=filter)
     return render(request, 'sofiapp/projects.html', {'projects': projects,
-                                              'categories': categories,
-                                              'project_types': project_types})
+                                                     'categories': categories,
+                                                     'project_types': project_types})
